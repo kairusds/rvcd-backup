@@ -13,7 +13,7 @@ jobs:
     - name: Start backup
       run: |
         python dl-all.py
-        echo "NOW=$(date +%F_%T)" >> $GITHUB_ENV
+        echo "NOW=$(date +%F_%T_%Z)" >> $GITHUB_ENV
 
     - name: Commit changes
       uses: EndBug/add-and-commit@v9
