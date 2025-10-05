@@ -1,21 +1,20 @@
 from urllib.request import urlopen, urlretrieve
 from json import load
 import os
-from subprocess import run
+from datetime import datetime, timezone
 
 try:
-	with urlopen("https://api.github.com/users/revanced/repos") as contents:
+	with urlopen("https://api.github.com/orgs/revanced/repos") as contents:
 		json = load(contents)
 except Exception as e:
 	print(e.reason)
 
 for repo in json:
-	filename = f"{repo['name']}.zip"
+	updated_at = datetime.fromisoformat(repo["updated_at"].replace('Z', '+00:00')).strftime("%Y%m%d_%H%M%S_UTC")
+	filename = f"{repo['name']}_{updated_at}.zip"
 	valid_repos = [
 		"revanced-cli",
-		"revanced-patcher",
 		"revanced-patches",
-		"revanced-integrations",
 		"revanced-manager"
 	]
 
